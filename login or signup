@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planet - Sign Up</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: white;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .background-patterns {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .tree-pattern {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 20%;
+            height: 50%;
+            background-image: url('/api/placeholder/200/300');
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.5;
+        }
+
+        .dots-pattern {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 30%;
+            height: 50%;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 10px;
+        }
+
+        .dot {
+            width: 5px;
+            height: 5px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+        }
+
+        .card {
+            background-color: #4CAF50;
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            width: 80%;
+            max-width: 900px;
+            height: 500px;
+            display: flex;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .left-panel {
+            flex: 1;
+            padding: 40px;
+            color: white;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            width: 30px;
+            height: 30px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+
+        .logo-icon span {
+            color: #388E3C;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .greeting {
+            margin-bottom: 30px;
+        }
+
+        .greeting h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .greeting p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .form-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            background-color: white;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 12px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember input {
+            margin-right: 5px;
+        }
+
+        .forgot-link {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+        }
+
+        .forgot-link:hover {
+            opacity: 1;
+        }
+
+        .btn {
+            background-color: #388E3C;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .btn:hover {
+            background-color: #388E3C;
+        }
+
+        .weather {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            display: flex;
+            flex-direction: column;
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .weather .temp {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .weather .temp i {
+            margin-right: 5px;
+        }
+
+        .right-panel {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .right-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the panel while maintaining aspect ratio */
+            object-position: center; /* Centers the image */
+        }
+
+        .switch-form {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: white;
+        }
+
+        .switch-form a {
+            color: #388E3C;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .switch-form a:hover {
+            text-decoration: underline;
+        }
+
+        #login-form {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-patterns">
+        <div class="tree-pattern"></div>
+        <div class="dots-pattern">
+            <!-- JavaScript will generate dots -->
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="left-panel">
+            <div class="logo">
+                <div class="logo-icon">
+                    <span>♥</span>
+                </div>
+                <div class="logo-text">Cropcare</div>
+            </div>
+
+            <div class="greeting" id="signup-greeting">
+                <h2>Join Cropcare</h2>
+                <p>It's a beautiful day to save the planet!</p>
+            </div>
+
+            <div class="greeting" id="login-greeting" style="display: none;">
+                <h2>Welcome back!</h2>
+                <p>It's a beautiful day to save the planet!</p>
+            </div>
+
+            <div class="form-container">
+                <!-- Sign Up Form -->
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" id="fullname" placeholder="Enter your full name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="your@email.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Create a password">
+                    </div>
+                    
+                    <button type="submit" class="btn">Sign Up</button>
+                </form>
+
+                <!-- Login Form -->
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" placeholder="your@email.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password">
+                    </div>
+                    
+                    <div class="options">
+                        <div class="remember">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-link">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn">Sign In</button>
+                </form>
+
+                <div class="switch-form" id="to-login">
+                    Already have an account? <a href="#" id="show-login">Sign In</a>
+                </div>
+
+                <div class="switch-form" id="to-signup" style="display: none;">
+                    Don't have an account? <a href="#" id="show-signup">Sign Up</a>
+                </div>
+            </div>
+
+            <div class="weather">
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <img src="https://png.pngtree.com/background/20211216/original/pngtree-natural-scenery-plant-green-rainy-rainy-season-fresh-photography-map-with-picture-image_1545489.jpg" alt="plant">
+        </div>
+    </div>
+
+    <script>
+        // Generate dots pattern
+        const dotsContainer = document.querySelector('.dots-pattern');
+        for (let i = 0; i < 100; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            // Randomize dot positions slightly
+            dot.style.marginTop = Math.random() * 10 + 'px';
+            dot.style.marginLeft = Math.random() * 10 + 'px';
+            dotsContainer.appendChild(dot);
+        }
+
+        // Form switching functionality
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const loginGreeting = document.getElementById('login-greeting');
+        const signupGreeting = document.getElementById('signup-greeting');
+        const toLogin = document.getElementById('to-login');
+        const toSignup = document.getElementById('to-signup');
+        const showLogin = document.getElementById('show-login');
+        const showSignup = document.getElementById('show-signup');
+
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.style.display = 'block';
+            signupForm.style.display = 'none';
+            loginGreeting.style.display = 'block';
+            signupGreeting.style.display = 'none';
+            toLogin.style.display = 'none';
+            toSignup.style.display = 'block';
+        });
+
+        showSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'block';
+            loginGreeting.style.display = 'none';
+            signupGreeting.style.display = 'block';
+            toLogin.style.display = 'block';
+            toSignup.style.display = 'none';
+        });
+
+        // Form validation
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            // Note: The confirm-password field is referenced in the JS but not in the HTML. You might want to add it.
+            alert('Sign up successful! (This would connect to a backend service)');
+        });
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Login successful! (This would connect to a backend service)');
+        });
+    </script>
+</body>
+</html>
