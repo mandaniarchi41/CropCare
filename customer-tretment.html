@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customized Treatment - CropCare</title>
+    <style>
+        /* Basic styles for the page */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('https://www.morningagclips.com/wp-content/uploads/2022/11/colsa-research-complex-crop-rotations-involve-many-different-crops-1.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #333;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        h2 {
+            color: #388E3C;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+        input:focus {
+            border-color: #388E3C;
+            outline: none;
+        }
+        button {
+            background-color: #388E3C;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #2E7D32;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .result h4 {
+            margin-top: 0;
+        }
+        .result ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        .decorative-image {
+            width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Customized Treatment Request</h2>
+    <form id="custom-treatment-form">
+        <label for="soil-type">Soil Type:</label>
+        <input type="text" id="soil-type" placeholder="Enter soil type (e.g., sandy, clay)" required>
+
+        <label for="crop-type">Crop Type:</label>
+        <input type="text" id="crop-type" placeholder="Enter crop type (e.g., Tomato)" required>
+
+        <label for="soil-ph">Soil pH:</label>
+        <input type="number" id="soil-ph" placeholder="Enter soil pH (e.g., 6.5)" step="0.1" required>
+
+        <button type="submit">Get Recommendations</button>
+    </form>
+
+    <div id="custom-treatment-result" class="result" style="display: none;">
+        <h4>Recommended Treatment</h4>
+        <p id="custom-treatment-description"></p>
+    </div>
+</div>
+
+<script>
+    document.getElementById('custom-treatment-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const soilType = document.getElementById('soil-type').value;
+        const cropType = document.getElementById('crop-type').value;
+        const soilPH = document.getElementById('soil-ph').value;
+
+        const treatmentData = getCustomTreatment(soilType, cropType, soilPH);
+        
+        document.getElementById('custom-treatment-description').innerHTML = treatmentData.description;
+        document.getElementById('custom-treatment-result').style.display = 'block';
+    });
+
+    function getCustomTreatment(soilType, cropType, soilPH) {
+        let description = `
+            For <strong>${cropType}</strong> in <strong>${soilType}</strong> soil with a pH of <strong>${soilPH}</strong>, we recommend the following:
+            <ul>
+        `;
+        
+        if (soilType.toLowerCase() === 'clay' && soilPH < 6.0) {
+            description += `
+                <li>Add lime to raise the pH and improve drainage.</li>
+                <li>Use a balanced fertilizer such as <strong>10-10-10</strong> or <strong>20-20-20</strong>.</li>
+                <li>Consider adding gypsum to improve soil structure.</li>
+            `;
+        } else if (soilType.toLowerCase() === 'sandy' && soilPH > 7.0) {
+            description += `
+                <li>Add organic matter, such as compost, to improve nutrient retention.</li>
+                <li>Use slow-release fertilizers like <strong>Osmocote</strong> or a balanced fertilizer like <strong>14-14-14</strong>.</li>
+                <li>Consider adding peat moss to enhance moisture retention.</li>
+            `;
+        } else {
+            description += `
+                <li>Regular fertilization with a balanced fertilizer is recommended.</li>
+                <li>Use fertilizers like <strong>10-10-10</strong> or <strong>15-15-15</strong> to maintain healthy growth.</li>
+            `;
+        }
+
+        description += `
+            </ul>
+            <p>Additionally, consider conducting a soil test to better understand the nutrient composition and pH levels, which can help in making more informed decisions about soil amendments and fertilizers.</p>
+        `;
+
+        return {
+            description: description
+        };
+    }
+</script>
+
+</body>
+</html>

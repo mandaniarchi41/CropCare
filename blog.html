@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CropCare - Plant Disease Diagnostic Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2e8b57;
+            --secondary-color: #3cb371;
+            --accent-color: #ff6b6b;
+            --text-dark: #333333;
+            --text-light: #777777;
+            --white: #ffffff;
+            --light-bg: #f9f9f9;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center; /* Center all content within containers */
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            text-align: left; /* Keep the header left-aligned */
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 20px;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+        
+        .mobile-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 450px;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            margin: 20px auto; /* Center the hero section */
+            max-width: 1160px; /* Slightly less than container to account for padding */
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7);
+        }
+        
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: var(--white);
+            width: 80%;
+            max-width: 800px;
+        }
+        
+        .hero-content h1 {
+            font-size: 42px;
+            color:rgb(1, 6, 1);
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+        
+        .hero-content p {
+            font-size: 18px;
+            color:rgb(2, 16, 2);
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            background-color: var(--secondary-color);
+        }
+        
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 60px auto; /* Center the features grid */
+            max-width: 1160px; /* Match hero section width */
+        }
+        
+        .feature-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(46, 139, 87, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        /* Blog Section */
+        .blog-section {
+            margin: 60px auto; /* Center the blog section */
+            max-width: 1160px; /* Match other sections */
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-header h2 {
+            font-size: 36px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-header p {
+            font-size: 18px;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            text-align: left; /* Keep blog card content left-aligned */
+            margin: 0 auto; /* Center the grid */
+        }
+        
+        .blog-card {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .blog-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        
+        .blog-content {
+            padding: 25px;
+        }
+        
+        .blog-category {
+            display: inline-block;
+            background-color: rgba(255, 107, 107, 0.1);
+            color: var(--accent-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .blog-content h3 {
+            margin-bottom: 15px;
+            font-size: 22px;
+            line-height: 1.3;
+        }
+        
+        .blog-content p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+        
+        .blog-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .blog-date {
+            display: flex;
+            align-items: center;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        .blog-date i {
+            margin-right: 5px;
+        }
+        
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        
+        .read-more:hover {
+            color: var(--secondary-color);
+        }
+        
+        .read-more i {
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+        
+        .read-more:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Plant Health Section */
+        .plant-health {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 40px;
+            margin: 60px auto; /* Center the section */
+            max-width: 1160px; /* Match other sections */
+        }
+        
+        .health-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            align-items: center;
+            text-align: left; /* Keep content left-aligned */
+        }
+        
+        .health-content h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .health-content p {
+            margin-bottom: 20px;
+            color: var(--text-light);
+        }
+        
+        .health-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+        
+        .stat-text {
+            color: var(--text-light);
+            font-size: 16px;
+        }
+        
+        .health-image {
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .health-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Newsletter Section */
+        .newsletter {
+            background-color: var(--primary-color);
+            padding: 60px 0;
+            text-align: center;
+            color: var(--white);
+            border-radius: var(--border-radius);
+            margin: 60px auto; /* Center the section */
+            max-width: 1160px; /* Match other sections */
+        }
+        
+        .newsletter h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-input {
+            flex-grow: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .newsletter-button {
+            padding: 15px 25px;
+            background-color: var(--accent-color);
+            color: var(--white);
+            border: none;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .newsletter-button:hover {
+            background-color: #ff5252;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: var(--white);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+            text-align: left; /* Keep footer content left-aligned */
+        }
+        
+        .footer-logo {
+            margin-bottom: 20px;
+        }
+        
+        .footer-about p {
+            opacity: 0.7;
+            margin-bottom: 20px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        .social-icon:hover {
+            background-color: white;
+        }
+        
+        .footer-links h3, .footer-contact h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3::after, .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .contact-info {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info i {
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+        
+        .contact-info p {
+            opacity: 0.7;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.7;
+            font-size: 14px;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .hero-content h1 {
+                font-size: 32px;
+            }
+            
+            .health-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .health-image {
+                order: -1;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input, .newsletter-button {
+                width: 100%;
+                border-radius: 30px;
+                margin-bottom: 10px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .features, .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .health-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="logo-text">CropCare</div>
+            </div>
+        
+            
+            <div class="mobile-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="container">
+        <div class="hero" style="background-image: url('https://img.freepik.com/premium-photo/autumn-leaves-with-blur-farm-background_31965-11823.jpg'); background-size: cover; background-position: center; position: relative;">
+          <div class="hero-content" style="position: relative; z-index: 1; color: white; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); padding: 2rem;">
+            <h1>Protecting Your Plants, Enhancing Yields</h1>
+            <p>Advanced AI-powered diagnostic tools to identify plant diseases, pests, and nutrient deficiencies in real-time</p>
+          </div>
+        </div>
+      </section>
+    
+  
+    
+    <!-- Blog Section -->
+    <section class="blog-section container">
+        <div class="section-header">
+            <h2>Latest Insights</h2>
+            <p>Stay updated with the latest farming techniques, disease management strategies, and sustainable practices</p>
+        </div>
+        
+        <div class="blog-grid">
+            <div class="blog-card">
+                <img src="https://lh3.googleusercontent.com/proxy/9rfZ6lcWX62gOka7HtpIw6JnjA1urK4lisLpAIIAZwB7R4vA8vXckp9pxRzxPmVywuxdeShLQScvPIT3x-g_JGJclS1w-1KixBy0mTFlPrdY7Q" alt="Rice Blast Disease" class="blog-image">
+                <div class="blog-content">
+                    <span class="blog-category">Disease Alert</span>
+                    <h3>Combating Rice Blast: Early Detection and Prevention</h3>
+                    <p>Rice blast disease affects millions of hectares annually. Learn how to identify the early signs and implement effective control measures before it spreads.</p>
+                    <div class="blog-meta">
+                        
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="blog-card">
+                <img src="https://agriwright.com/wp-content/uploads/2024/06/Default_A_closeup_image_of_a_healthy_tomatoes_plants_in_one_se_1.jpg" alt="Tomato Growing Tips" class="blog-image">
+                <div class="blog-content">
+                    <span class="blog-category">Growing Tips</span>
+                    <h3>Maximizing Tomato Yields: Best Practices for Small-Scale Farmers</h3>
+                    <p>Discover proven techniques to increase your tomato production while maintaining quality. From spacing to watering schedules, we cover it all.</p>
+                    <div class="blog-meta">
+                        
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="blog-card">
+                <img src="https://bioprotectionportal.com/wp-content/uploads/2024/04/CABI_IPM_08.04.2024-900px.png?x41933" alt="Pest Management" class="blog-image">
+                <div class="blog-content">
+                    <span class="blog-category">Pest Control</span>
+                    <h3>Integrated Pest Management Strategies for Cotton Farmers</h3>
+                    <p>Reduce chemical use while effectively managing pests with these sustainable integrated pest management techniques tailored for cotton cultivation.</p>
+                    <div class="blog-meta">
+                        
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="blog-card">
+                <img src="https://biomemakers.com/hs-fs/hubfs/Google%20Drive%20Integration/Soil%20Health%20Glossary%20-%20revised-1.jpeg?width=1200&name=Soil%20Health%20Glossary%20-%20revised-1.jpeg" alt="Soil Health" class="blog-image">
+                <div class="blog-content">
+                    <span class="blog-category">Soil Management</span>
+                    <h3>Building Soil Health: The Foundation of Productive Farming</h3>
+                    <p>Learn how to test, improve, and maintain soil health using organic methods that boost microbial activity and nutrient availability.</p>
+                    <div class="blog-meta">
+                        
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="blog-card">
+                <img src="https://media.sciencephoto.com/image/b2650062/800wm" alt="Potato Late Blight" class="blog-image">
+                <div class="blog-content">
+                    <span class="blog-category">Disease Alert</span>
+                    <h3>Potato Late Blight: Symptoms, Spread, and Solutions</h3>
+                    <p>Late blight devastated Ireland once and still threatens potato crops worldwide. Discover how modern techniques can help you prevent this historical disease.</p>
+                    <div class="blog-meta">
+                        
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="blog-card">
+                <img src="https://www.green.earth/hs-fs/hubfs/Sustainable%20farming%20practices%20and%20the%20long-term%20survival%20of%20civilisations_visual%201.png?width=1200&height=800&name=Sustainable%20farming%20practices%20and%20the%20long-term%20survival%20of%20civilisations_visual%201.png" alt="Sustainable Farming" class="blog-image">
+                <div class="blog-content">
+                    <span class="blog-category">Sustainability</span>
+                    <h3>Climate-Smart Agriculture: Adapting to Changing Weather Patterns</h3>
+                    <p>As climate change impacts farming worldwide, learn adaptive strategies to protect your crops and maintain productivity despite unpredictable conditions.</p>
+                    <div class="blog-meta">
+                       
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Plant Health Section -->
+    <section class="container">
+        <div class="plant-health">
+            <div class="health-grid">
+                <div class="health-content">
+                    <h2>Why Plant Health Monitoring Matters</h2>
+                    <p>Regular monitoring and early intervention can prevent up to 70% of crop losses due to diseases and pests. Our diagnostic tools help you spot problems before they become severe.</p>
+                    <p>By implementing timely treatments based on accurate diagnoses, farmers have seen yield increases of 30-45% compared to reactive approaches.</p>
+                    
+                    <div class="health-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">70%</div>
+                            <div class="stat-text">Preventable Crop Losses</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">95%</div>
+                            <div class="stat-text">Diagnostic Accuracy</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">30k+</div>
+                            <div class="stat-text">Farmers Supported</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">500+</div>
+                            <div class="stat-text">Plant Varieties</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="health-image">
+                    <img src="https://st5.depositphotos.com/7375876/62608/i/450/depositphotos_626080234-stock-photo-female-hand-expert-farmer-collect.jpg" alt="Farmer checking plant health">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter Section -->
+    <section class="container">
+        <div class="newsletter">
+            <h2>Stay Updated with CropCare</h2>
+            <p>Subscribe to our newsletter to receive weekly insights, disease alerts, and growing tips tailored to your region and crops</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address" class="newsletter-input" required>
+                <button type="submit" class="newsletter-button">Subscribe</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="logo">
+                            <div class="logo-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="logo-text" style="color: white;">CropCare</div>
+                        </div>
+                    </div>
+                    <p>CropCare is dedicated to supporting small-scale farmers through technology-driven solutions. Our AI-powered diagnostic tools help identify and treat plant diseases efficiently.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Plant Library</a></li>
+                        <li><a href="#">Disease Index</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Growing Guides</a></li>
+                        <li><a href="#">Pest Control</a></li>
+                        <li><a href="#">Soil Management</a></li>
+                        <li><a href="#">Weather Alerts</a></li>
+                        <li><a href="#">Farming Calendar</a></li>
+                        <li><a href="#">Community Forum</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <div class="contact-info">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <p>123 Farming Avenue, Agritech Park<br>Green Valley, CA 95432</p>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-phone-alt"></i>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-envelope"></i>
+                        <p>support@cropcare.com</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 CropCare. All Rights Reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+</body
